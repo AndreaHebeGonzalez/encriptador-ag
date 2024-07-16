@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Encriptador de texto</title>
+</head>
+<body class="contenedor">
+    <header class="header seccion">
+        <h1 class="header__heading">Encriptador de texto</h1>
+        <figure class="header__logo">
+            <img src="./img/Logo.svg" alt="Logo">
+        </figure>
+    </header>
+
+    <main class="main seccion ">
+        <div class="encriptador">
+            <textarea class="encriptador__entrada " id="entrada-texto" name="entrada-texto" placeholder= "Ingrese el texto aquí"></textarea>
+            <div class="encriptador__acciones">
+                <div class="encriptador__restricciones">
+                    <img src="./img/bi_exclamation-circle-fill.svg" alt="icono de alerta"><p>Solo letras minúsculas y sin acentos</p>
+                </div>
+                <div class="encriptador__botones">
+                    <button class="btn-primary" id="encriptar">Encriptar</button>
+                    <button class="btn-primary btn-primary--deshabilitado" id="desencriptar">Desencriptar</button>
+                </div>
+            </div>
+        </div>
+        <aside class="aside">
+            <div class="resultado">
+                <textarea class="resultado__textarea d-none" name="resultado__texto" id="resultado__texto" readonly></textarea>
+                <div class="resultado__alerta">
+                    <figure class="resultado__alerta-ilustracion">
+                        <img src="./img/ilu-search.png" alt="ilustracion persona buscando">
+                    </figure>
+                    <div class="resultado__alerta-mensaje">
+                        <span>Ningún mensaje fue encontrado</span>
+                        <p>Ingresá el texto que desees encriptar o desencriptar.</p>
+                    </div>
+                </div>
+                <button class="btn-primary d-none">Copiar</button>
+            </div>
+        </aside>
+    </main>
+
+    
+
+    <footer class="footer seccion">
+        <p>Desarrollado por Andrea Gonzalez</p>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>
