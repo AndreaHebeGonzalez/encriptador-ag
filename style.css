@@ -206,25 +206,31 @@ a {
     animation: scale-signo 500ms linear; 
 }
 
-.encriptador__botones {
+[class$="botones"] {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 2.4rem;
 }
 
+[class$="botones"] button {
+    max-width: 28rem;
+}
+
 @media (min-width: 768px) { 
-    .encriptador__botones {
+    [class$="botones"] {
         flex-direction: row;
+        justify-content: center;
     }
 }
 
 @media (min-width: 1024px) { 
-    .encriptador__botones {
+    [class$="botones"] {
         justify-content: center;
         gap: 2rem;
     }
 
-    .encriptador__botones button {
+    [class$="botones"] button {
         max-width: 28rem;
     }
 }
@@ -257,11 +263,11 @@ a {
 } 
 
 .resultado__alerta {
-    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
 }
 
@@ -272,9 +278,10 @@ a {
 @media (min-width: 1024px) { 
     .resultado__alerta-ilustracion {
         display: block;
-        max-width: 24rem;
+        max-width: 20rem;
         height: auto;
-        transform: rotate(-13deg) translate(-32%, -10%) scale(1.4);
+        transform: rotate(-13deg) translate(-60%, -14%) scale(1.4);
+        transition: transform 500ms;
     }
 }
 
@@ -296,6 +303,29 @@ a {
     font-weight: 300;
 }
 
+.resultado__botones .btn-primary:first-child {
+    position: relative;
+}
+
+.icono-ok {
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    top: -10%;
+    right: 0;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.mostrar {
+    visibility: visible;
+}
+
+
+.animacion-mostrar-ok {
+    animation: mostrar-ok 400ms linear forwards;
+}
+
 .footer {
     text-align: center;
 }
@@ -306,16 +336,16 @@ a {
 
 @keyframes atencion {
     0% {
-        transform: translateX(1.2%); 
+        transform: translateX(1.5%); 
     } 
     25% {
-        transform: translateX(-1.2%); 
+        transform: translateX(-1.5%); 
     } 
     50% {
-        transform: translateX(.52%); 
+        transform: translateX(.60%); 
     } 
     75% {
-        transform: translateX(-.52%); 
+        transform: translateX(-.60%); 
     } 
     100% {
         transform: translateX(0); 
@@ -338,6 +368,21 @@ a {
     100% {
         transform: scale(1); 
     } 
+}
+
+@keyframes mostrar-ok {
+    0% {
+        opacity: 0;
+        transform: scale(1);  
+    } 
+    50% {
+        opacity: 0.5;  
+        transform: scale(1.5); 
+    } 
+    100% {
+        opacity: 1; 
+        transform: scale(1);
+    }
 }
 
 .d-none {

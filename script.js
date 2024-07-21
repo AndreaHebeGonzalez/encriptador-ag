@@ -50,10 +50,18 @@ document.addEventListener('DOMContentLoaded', () => {
         pError.style.color = '#fff';
     };
 
+    function agregarAnimacionTemblor(elemento) {
+        elemento.classList.add('animacion-atencion');
+    }
+
+    function removerAnimacionTemblor(elemento) {
+        elemento.classList.remove('animacion-atencion');
+    }
+
     function animacionError() {
-        boxRestricciones.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        boxRestricciones.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setTimeout(() => {
-            boxRestricciones.classList.add('animacion-atencion');
+            agregarAnimacionTemblor(boxRestricciones);
             const ico = boxRestricciones.querySelector('img');
             ico.classList.add('animacion-scale-signo');
             setTimeout(() => {
@@ -63,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function animacionErrorRemover() {
-        boxRestricciones.classList.remove('animacion-atencion');
+        removerAnimacionTemblor(boxRestricciones);
         const ico = boxRestricciones.querySelector('img');
         ico.classList.remove('animacion-scale-signo');
     };
@@ -73,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             animacionErrorRemover();
             estilosErrorRemover();
             deshabilitarBoton(botones[0]);
+            deshabilitarBoton(botones[1]);
             entradaTexto = '';
             return;
         };
@@ -89,28 +98,34 @@ document.addEventListener('DOMContentLoaded', () => {
         entradaTexto = e.target.value.trim();
         
         habilitarBoton(botones[0]);
-        verificarEncriptacion();
-        if(estaEncriptado) {
-            habilitarBoton(botones[1]);
-        }
+        habilitarBoton(botones[1]);
     };
 
     /* Encriptar */
 
     function encriptar() {
-        let textoEncriptado = '';       
-        for(let i = 0; i < entradaTexto.length; i++) {        
-            if (Object.keys(llaves).includes(entradaTexto[i])) {
-                textoEncriptado += llaves[entradaTexto[i]]; 
-            } else { 
-                textoEncriptado += entradaTexto[i]; 
+        removerAnimacionOk();
+        if(requiereEncriptacion()) {
+            let textoEncriptado = '';       
+            for(let i = 0; i < entradaTexto.length; i++) {        
+                if (Object.keys(llaves).includes(entradaTexto[i])) {
+                    textoEncriptado += llaves[entradaTexto[i]]; 
+                } else { 
+                    textoEncriptado += entradaTexto[i]; 
+                };
             };
-        };
-        console.log(textoEncriptado);
-        mostrarResultado(textoEncriptado);
+            mostrarResultado(textoEncriptado);
+            return;
+        }; 
+        mostrarNoEncriptado('El texto no requiere encriptación.', './img/ilu-no-encriptado.png', 'translateY(9%) scale(1.4)');
+        agregarAnimacionTemblor(alerta.querySelector('.resultado__alerta-mensaje span'));
+        setTimeout(() => {
+            removerAnimacionTemblor(alerta.querySelector('.resultado__alerta-mensaje span'));
+        }, 1300); 
+        console.log('El texto no requiere encriptación.');
     };
 
-    /* Verificar si está encriptado */
+    /* Verificar si está encriptado, si lo está se desencripta, sino devuelve error */
 
     function verificarEncriptacion() {
         let i = 0;
@@ -118,8 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (Object.keys(llaves).includes(entradaTexto[i])) { 
                 if (entradaTexto.slice(i, i + llaves[entradaTexto[i]].length) === llaves[entradaTexto[i]]) {
                     estaEncriptado = true;
-                    console.log(entradaTexto)
-                    console.log(entradaTexto.slice(i, i + llaves[entradaTexto[i]].length) === llaves[entradaTexto[i]])
                     i += llaves[entradaTexto[i]].length;
                     continue;
                 } 
@@ -128,15 +141,27 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             i++;
         };
-        return; 
+    };
+
+    /* Verificar necesidad de encriptacion  */
+
+    function requiereEncriptacion() {
+        let i = 0;
+        while(i < entradaTexto.length) {
+            if (Object.keys(llaves).includes(entradaTexto[i])) { 
+                return true;
+            };
+            i++;
+        };
+        return false;
     }
 
     /* Desencriptar */
 
     function desencriptar() {
-        let textoDesencriptado = '';  
+        let textoDesencriptado = '';
+        removerAnimacionOk();  
         verificarEncriptacion();
-        console.log(estaEncriptado);
         if(estaEncriptado) {
             for(let i = 0; i < entradaTexto.length; i++) {       
                 if (Object.keys(llaves).includes(entradaTexto[i])) { 
@@ -152,25 +177,91 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
             };
         } else {
-            mostrarResultado('El texto no está encriptado, por favor ingrese un texto encriptado');
+            mostrarNoEncriptado('El texto no está encriptado.', './img/ilu-no-encriptado.png', 'translateY(9%) scale(1.4)');
+            agregarAnimacionTemblor(alerta.querySelector('.resultado__alerta-mensaje span'));
+            setTimeout(() => {
+                removerAnimacionTemblor(alerta.querySelector('.resultado__alerta-mensaje span'));
+            }, 1300); 
             return;
         }
         mostrarResultado(textoDesencriptado);
     };
 
-    /* Imprimir resultado */
+    /* Error de mensaje no encriptado */
 
-    function mostrarResultado(resultado) {
-        if (resultado) {
-            alerta.classList.add('d-none');
-            resultadoBox.value = resultado;
-            resultadoBox.classList.remove('d-none');
-            botones[2].classList.remove('d-none');
-        }
-
+    function mostrarNoEncriptado(texto, url, transform ) {
+        limpiarResultado();
+        tituloError(texto);
+        imagenError(url, transform); 
     }
 
+    /* Mostrar resultado */
+
+    function mostrarResultado(resultado) {
+        alerta.classList.add('d-none');
+        resultadoBox.value = resultado;
+        resultadoBox.classList.remove('d-none');
+        botones[2].classList.remove('d-none');
+        botones[3].classList.remove('d-none');
+    }
+
+    function limpiarResultado() {
+        alerta.classList.remove('d-none');
+        resultadoBox.classList.add('d-none');
+        botones[2].classList.add('d-none');
+        botones[3].classList.add('d-none');
+    }
+
+    /* Limpar campos */
+
+    function limpiarCampos() {
+        entrada.value = '';
+        entradaTexto = '';
+        resultadoBox.value = '';
+        limpiarResultado();
+        imagenError('./img/ilu-search.png', 'rotate(-13deg) translate(-60%, -14%) scale(1.4)')
+        tituloError('Ningún mensaje fue encontrado');
+        removerAnimacionOk()
+    };
+
+    function tituloError(mensaje) {
+        const texto = alerta.querySelector('.resultado__alerta-mensaje span');
+        texto.textContent = mensaje;
+    }
+
+    function imagenError(url, transform) {
+        const imagenErrorBox = alerta.querySelector('.resultado__alerta-ilustracion');
+        imagenErrorBox.style.transform = transform; 
+        const imagenError = imagenErrorBox.firstElementChild;
+        imagenError.src = url;
+    }
+
+    function mostrarAnimacionOk() {
+        const imgOk = document.querySelector('.icono-ok');
+        imgOk.classList.add('mostrar');
+        setTimeout(() => {
+            imgOk.classList.add('animacion-mostrar-ok');
+        }, 100);
+    }
+
+    function removerAnimacionOk() {
+        const imgOk = document.querySelector('.icono-ok');
+        imgOk.classList.remove('mostrar');
+        imgOk.classList.remove('animacion-mostrar-ok');
+    }
     
+    /* copiar texto */
+    async function copiarResultado() {
+        try {
+            if(resultadoBox.value) {
+                await navigator.clipboard.writeText(resultadoBox.value);
+                mostrarAnimacionOk();
+            };
+        } catch (error) {
+            console.log('el texto no pudo ser copiado en el portapapeles');
+        };
+    };
+
     deshabilitarBoton(botones[0]);
     deshabilitarBoton(botones[1]);
 
@@ -180,4 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     botones[0].addEventListener('click', encriptar);
     botones[1].addEventListener('click', desencriptar);
+    botones[2].addEventListener('click', copiarResultado);
+    botones[3].addEventListener('click', limpiarCampos);
 });
