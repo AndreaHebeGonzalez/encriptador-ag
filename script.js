@@ -242,9 +242,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function imagenError(url, transform) { 
         const imagenErrorBox = alerta.querySelector('.resultado__alerta-ilustracion');
-        imagenErrorBox.style.transform = transform; 
         const imagenError = imagenErrorBox.firstElementChild;
         imagenError.src = url;
+        setTimeout(() => {
+            imagenErrorBox.style.transform = transform;  
+        }, 10);
+        
     }
 
     function mostrarAnimacionOk() { //Animacion ok sobre el boton copiar
