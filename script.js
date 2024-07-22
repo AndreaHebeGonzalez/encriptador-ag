@@ -195,8 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function mostrarNoEncriptado(texto, url, transform ) {
         limpiarResultado();
-        tituloError(texto);
-        imagenError(url, transform); 
+        setTimeout(() => {
+            tituloError(texto);
+            imagenError(url, transform); 
+        }, 10);
+        
     }
 
     /* Mostrar resultado */
