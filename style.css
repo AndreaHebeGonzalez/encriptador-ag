@@ -30,6 +30,10 @@ textarea {
 outline: none;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     min-height: 100dvh;
     font-size: 1.6rem;
@@ -40,7 +44,18 @@ body {
     color: var(--blanco);
     display: grid;
     grid-template-rows: auto 1fr auto;
+   /*  align-items: center; */
     scroll-behavior: smooth;
+}
+
+@media (min-width: 1024px) and (min-height: 1000px) { 
+    body {
+        max-height: 1000px;
+        min-height: unset;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }
 
 img {
@@ -296,6 +311,12 @@ a {
     }
 }
 
+@media (min-height: 900px) {
+    .resultado__alerta-ilustracion {
+        max-width: 26rem;
+    }
+}
+
 .resultado__alerta-mensaje {
     text-align: center;
     display: flex;
@@ -335,8 +356,6 @@ a {
 .footer {
     text-align: center;
 }
-
-
 
 /* Animacion de error de ingresos */
 
