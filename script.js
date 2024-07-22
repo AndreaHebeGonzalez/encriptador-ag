@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('El texto no requiere encriptación.');
             return;
         }; 
-        
+
         let textoEncriptado = '';       
         for(let i = 0; i < entradaTexto.length; i++) {        
             if (Object.keys(llaves).includes(entradaTexto[i])) {
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         imagenError.src = url;
         setTimeout(() => {
             imagenErrorBox.style.transform = transform;  
-        }, 250);
+        }, 15);
         
     }
 
