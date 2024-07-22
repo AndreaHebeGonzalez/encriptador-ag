@@ -231,6 +231,9 @@ document.addEventListener('DOMContentLoaded', () => {
         removerIconoPegar();
         animacionErrorRemover();
         estilosErrorRemover();
+        deshabilitarBoton(botones[0]);
+        deshabilitarBoton(botones[1]);
+
     };
 
     function tituloError(mensaje) {
