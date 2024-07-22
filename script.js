@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mostrarResultado(textoEncriptado);
             return;
         }; 
-        mostrarNoEncriptado('El texto no requiere encriptación.', './img/ilu-no-encriptado.png', 'translateY(9%) scale(1.4)');
+        mostrarNoEncriptado('El texto no requiere encriptación.', './img/ilu-no-encriptado.webp', 'translateY(9%) scale(1.4)');
         agregarAnimacionTemblor(alerta.querySelector('.resultado__alerta-mensaje span'));
         setTimeout(() => {
             removerAnimacionTemblor(alerta.querySelector('.resultado__alerta-mensaje span'));
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         removerAnimacionOk();
         console.log(verificarEncriptacion());  
         if(!verificarEncriptacion()) {
-            mostrarNoEncriptado('El texto no está encriptado.', './img/ilu-no-encriptado.png', 'translateY(9%) scale(1.4)');
+            mostrarNoEncriptado('El texto no está encriptado.', './img/ilu-no-encriptado.webp', 'translateY(9%) scale(1.4)');
             agregarAnimacionTemblor(alerta.querySelector('.resultado__alerta-mensaje span'));
             setTimeout(() => {
                 removerAnimacionTemblor(alerta.querySelector('.resultado__alerta-mensaje span'));
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entradaTexto = '';
         resultadoBox.value = '';
         limpiarResultado();
-        imagenError('./img/ilu-search.png', 'rotate(-13deg) translate(-60%, -14%) scale(1.4)')
+        imagenError('./img/ilu-search.webp', 'rotate(-13deg) translate(-60%, -14%) scale(1.4)');
         tituloError('Ningún mensaje fue encontrado');
         removerAnimacionOk();
         removerIconoPegar();
@@ -233,7 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
         estilosErrorRemover();
         deshabilitarBoton(botones[0]);
         deshabilitarBoton(botones[1]);
-
     };
 
     function tituloError(mensaje) {
