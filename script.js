@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
         imagenError.src = url;
         setTimeout(() => {
             imagenErrorBox.style.transform = transform;  
-        }, 30);
+        }, 10);
         
     }
 
