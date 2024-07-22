@@ -183,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(subcadena === llaves[char]) {   
                     textoDesencriptado += char;  
                     i += llaves[char].length - 1;  
+                    continue;
                 };
             }; 
             textoDesencriptado += char;
