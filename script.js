@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         u: 'ufat',
     }
 
-    let estaEncriptado = false;
-
     /* Validaciones */
 
     function deshabilitarBoton(boton) {
@@ -101,6 +99,44 @@ document.addEventListener('DOMContentLoaded', () => {
         habilitarBoton(botones[1]);
     };
 
+    /* Verificar si está encriptado, si lo está se desencripta, sino devuelve alerta*/
+
+    function verificarEncriptacion() {
+        const llavesArray = Object.keys(llaves);
+        let i = 0;
+        let tieneVocal = false;
+        while(i < entradaTexto.length) {
+            if (llavesArray.includes(entradaTexto[i])) { 
+                tieneVocal = true;
+                const subcadena = entradaTexto.slice(i, i + llaves[entradaTexto[i]].length);
+                if (subcadena === llaves[entradaTexto[i]]) {
+                    i += llaves[entradaTexto[i]].length;
+                    continue;
+                } 
+                return false;
+            };
+            i++;
+        };
+        if(!tieneVocal) {
+            return false;
+        };
+        return true;
+    };
+
+    /* Verificar necesidad de encriptacion, si tiene una vocal retorna verdadero sino retorna falso y se emite alerta */
+
+    function requiereEncriptacion() {
+        let i = 0;
+        const llavesArray = Object.keys(llaves);
+        while(i < entradaTexto.length) {
+            if (llavesArray.includes(entradaTexto[i])) { 
+                return true;
+            };
+            i++;
+        };
+        return false;
+    }
+
     /* Encriptar */
 
     function encriptar() {
@@ -125,58 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('El texto no requiere encriptación.');
     };
 
-    /* Verificar si está encriptado, si lo está se desencripta, sino devuelve error */
-
-    function verificarEncriptacion() {
-        let i = 0;
-        while(i < entradaTexto.length) {
-            if (Object.keys(llaves).includes(entradaTexto[i])) { 
-                if (entradaTexto.slice(i, i + llaves[entradaTexto[i]].length) === llaves[entradaTexto[i]]) {
-                    estaEncriptado = true;
-                    i += llaves[entradaTexto[i]].length;
-                    continue;
-                } 
-                estaEncriptado = false;
-                return;
-            };
-            i++;
-        };
-    };
-
-    /* Verificar necesidad de encriptacion  */
-
-    function requiereEncriptacion() {
-        let i = 0;
-        while(i < entradaTexto.length) {
-            if (Object.keys(llaves).includes(entradaTexto[i])) { 
-                return true;
-            };
-            i++;
-        };
-        return false;
-    }
-
     /* Desencriptar */
 
     function desencriptar() {
-        let textoDesencriptado = '';
-        removerAnimacionOk();  
-        verificarEncriptacion();
-        if(estaEncriptado) {
-            for(let i = 0; i < entradaTexto.length; i++) {       
-                if (Object.keys(llaves).includes(entradaTexto[i])) { 
-                    const valor = entradaTexto.slice(i, i + llaves[entradaTexto[i]].length);
-                    if(valor === llaves[entradaTexto[i]]) {   
-                        textoDesencriptado += entradaTexto[i];  
-                        i += llaves[entradaTexto[i]].length - 1;  
-                    } else {
-                        textoDesencriptado += entradaTexto[i];
-                    };
-                } else { 
-                    textoDesencriptado += entradaTexto[i];
-                };
-            };
-        } else {
+        removerAnimacionOk();
+        console.log(verificarEncriptacion());  
+        if(!verificarEncriptacion()) {
             mostrarNoEncriptado('El texto no está encriptado.', './img/ilu-no-encriptado.png', 'translateY(9%) scale(1.4)');
             agregarAnimacionTemblor(alerta.querySelector('.resultado__alerta-mensaje span'));
             setTimeout(() => {
@@ -184,6 +174,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1300); 
             return;
         }
+        let textoDesencriptado = '';
+        const llavesArray = Object.keys(llaves);
+        for(let i = 0; i < entradaTexto.length; i++) {   
+            const char =  entradaTexto[i];   
+            if (llavesArray.includes(char)) { 
+                const subcadena = entradaTexto.slice(i, i + llaves[char].length);
+                if(subcadena === llaves[char]) {   
+                    textoDesencriptado += char;  
+                    i += llaves[char].length - 1;  
+                };
+            }; 
+            textoDesencriptado += char;
+        };
         mostrarResultado(textoDesencriptado);
     };
 
@@ -199,11 +202,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function mostrarResultado(resultado) {
         alerta.classList.add('d-none');
+        entrada.value = '';
         resultadoBox.value = resultado;
         resultadoBox.classList.remove('d-none');
         botones[2].classList.remove('d-none');
         botones[3].classList.remove('d-none');
     }
+
 
     function limpiarResultado() {
         alerta.classList.remove('d-none');
@@ -221,7 +226,10 @@ document.addEventListener('DOMContentLoaded', () => {
         limpiarResultado();
         imagenError('./img/ilu-search.png', 'rotate(-13deg) translate(-60%, -14%) scale(1.4)')
         tituloError('Ningún mensaje fue encontrado');
-        removerAnimacionOk()
+        removerAnimacionOk();
+        removerIconoPegar();
+        animacionErrorRemover();
+        estilosErrorRemover();
     };
 
     function tituloError(mensaje) {
@@ -229,14 +237,14 @@ document.addEventListener('DOMContentLoaded', () => {
         texto.textContent = mensaje;
     }
 
-    function imagenError(url, transform) {
+    function imagenError(url, transform) { 
         const imagenErrorBox = alerta.querySelector('.resultado__alerta-ilustracion');
         imagenErrorBox.style.transform = transform; 
         const imagenError = imagenErrorBox.firstElementChild;
         imagenError.src = url;
     }
 
-    function mostrarAnimacionOk() {
+    function mostrarAnimacionOk() { //Animacion ok sobre el boton copiar
         const imgOk = document.querySelector('.icono-ok');
         imgOk.classList.add('mostrar');
         setTimeout(() => {
@@ -244,10 +252,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 
-    function removerAnimacionOk() {
+    function removerAnimacionOk() { //Animacion ok sobre el boton copiar
         const imgOk = document.querySelector('.icono-ok');
         imgOk.classList.remove('mostrar');
         imgOk.classList.remove('animacion-mostrar-ok');
+    }
+
+    function mostrarIconoPegar() {
+        const icoPegar = document.querySelector('.icono-pegar');
+        icoPegar.style.pointerEvents = 'auto';
+        icoPegar.classList.add('mostrar');
+        icoPegar.addEventListener('click', () => {
+            pegarCopiado();
+            
+        })
+    }
+
+    function removerIconoPegar() {
+        const icoPegar = document.querySelector('.icono-pegar');
+        icoPegar.style.pointerEvents = 'none';
+        icoPegar.classList.remove('mostrar');
     }
     
     /* copiar texto */
@@ -256,11 +280,27 @@ document.addEventListener('DOMContentLoaded', () => {
             if(resultadoBox.value) {
                 await navigator.clipboard.writeText(resultadoBox.value);
                 mostrarAnimacionOk();
+                setTimeout(() => {
+                    mostrarIconoPegar()
+                }, 600);
             };
         } catch (error) {
             console.log('el texto no pudo ser copiado en el portapapeles');
         };
     };
+    
+
+    async function pegarCopiado() {
+        try {
+            const texto = await navigator.clipboard.readText();
+            entrada.value = texto;
+            entradaTexto = texto;
+            animacionErrorRemover();
+            estilosErrorRemover();
+        } catch (error) {
+            console.log('No se pudo pegar el texto del portapapeles');
+        }
+    }
 
     deshabilitarBoton(botones[0]);
     deshabilitarBoton(botones[1]);

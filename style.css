@@ -149,6 +149,16 @@ a {
     gap: 2rem;
     flex: 1;
     min-height: 40rem; 
+    position: relative;
+}
+
+.icono-pegar {
+    width: 3.5rem;
+    height: 3.5rem;
+    position: absolute;
+    top: 4%;
+    right: 4%;
+    visibility: hidden;
 }
 
 .encriptador__entrada,
@@ -317,11 +327,6 @@ a {
     opacity: 0;
 }
 
-.mostrar {
-    visibility: visible;
-}
-
-
 .animacion-mostrar-ok {
     animation: mostrar-ok 400ms linear forwards;
 }
@@ -385,6 +390,12 @@ a {
     }
 }
 
+/* Utilidades */
+
 .d-none {
     display: none;
+}
+
+.mostrar {
+    visibility: visible;
 }
