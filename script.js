@@ -204,10 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const imagenError = imagenErrorBox.firstElementChild;
         imagenError.src = url;
         imagenError.onload = function() {
+            console.log('cargo la imagen')
             // Aplicar el transform con una pequeña demora para garantizar que la transición ocurra después de la carga
             setTimeout(() => {
                 imagenErrorBox.style.transform = transform;  
-            }, 50);
+            }, 20);
         };
     }
 
