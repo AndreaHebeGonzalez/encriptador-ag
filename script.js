@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('El texto no requiere encriptación.');
             return;
         }; 
-
+        
         let textoEncriptado = '';       
         for(let i = 0; i < entradaTexto.length; i++) {        
             if (Object.keys(llaves).includes(entradaTexto[i])) {
@@ -203,10 +203,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const imagenErrorBox = alerta.querySelector('.resultado__alerta-ilustracion');
         const imagenError = imagenErrorBox.firstElementChild;
         imagenError.src = url;
-        setTimeout(() => {
-            imagenErrorBox.style.transform = transform;  
-        }, 150);
-        
+        imagenError.onload = function() {
+            // Aplicar el transform con una pequeña demora para garantizar que la transición ocurra después de la carga
+            setTimeout(() => {
+                imagenErrorBox.style.transform = transform;  
+            }, 50);
+        };
     }
 
     function mostrarNoEncriptado(texto, url, transform ) {

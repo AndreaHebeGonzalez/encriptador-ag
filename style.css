@@ -308,8 +308,8 @@ a {
         display: block;
         max-width: 20rem;
         height: auto;
+        transition: transform 0.5s ease-in-out;
         transform: rotate(-13deg) translate(-60%, -14%) scale(1.4);
-        transition: all .5s;
     }
 }
 
