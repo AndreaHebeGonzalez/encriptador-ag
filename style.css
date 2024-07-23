@@ -38,11 +38,10 @@ html {
 }
 
 body {
-    min-height: 100dvh;
+    min-height: 100vh;
     font-size: 1.6rem;
     font-family: var(--fuente-principal);
     line-height: 1.4;
-    position: relative;
     background-color: var(--primario);
     color: var(--blanco);
     display: grid;

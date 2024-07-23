@@ -197,22 +197,24 @@ document.addEventListener('DOMContentLoaded', () => {
     function tituloError(mensaje) {
         const texto = alerta.querySelector('.resultado__alerta-mensaje span');
         texto.textContent = mensaje;
-    }
+    };
 
     function imagenError(url, transform) { 
         const imagenErrorBox = alerta.querySelector('.resultado__alerta-ilustracion');
         const imagenError = imagenErrorBox.firstElementChild;
         imagenError.src = url;
+        if(url = './img/ilu-search.webp') {
+            imagenErrorBox.style.transform = 'translateY(9%) scale(1.4)';
+        };
         imagenError.onload = function() {
             console.log('cargo la imagen')
-            // Aplicar el transform con una pequeña demora para garantizar que la transición ocurra después de la carga
             setTimeout(() => {
                 imagenErrorBox.style.transform = transform;  
             }, 20);
         };
-    }
+    };
 
-    function mostrarNoEncriptado(texto, url, transform ) {
+    function mostrarNoEncriptado(texto, url, transform) {
         limpiarResultado();
         setTimeout(() => {
             tituloError(texto);
@@ -226,6 +228,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function mostrarResultado(resultado) {
         alerta.classList.add('d-none');
         entrada.value = '';
+        entradaTexto = '';
+        deshabilitarBoton(botones[0]);
+        deshabilitarBoton(botones[1]);
         resultadoBox.value = resultado;
         resultadoBox.classList.remove('d-none');
         botones[2].classList.remove('d-none');
@@ -310,6 +315,8 @@ document.addEventListener('DOMContentLoaded', () => {
             entradaTexto = texto;
             animacionErrorRemover();
             estilosErrorRemover();
+            habilitarBoton(botones[0]);
+            habilitarBoton(botones[1]);
         } catch (error) {
             console.log('No se pudo pegar el texto del portapapeles');
         }
