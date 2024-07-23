@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function animacionError() {
-        boxRestricciones.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        boxRestricciones.scrollIntoView({ behavior: 'smooth', block: 'end' });
         setTimeout(() => {
             agregarAnimacionTemblor(boxRestricciones);
             const ico = boxRestricciones.querySelector('img');

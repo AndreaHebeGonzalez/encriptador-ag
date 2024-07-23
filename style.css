@@ -90,7 +90,7 @@ a {
     background-color: var(--blanco);
     border-radius: 2.4rem;
     color: var(--secundario);
-    padding: 1.8rem 2rem;
+    padding: 1.3rem 2rem;
     border: none;
     width: 100%;
     font-weight: 600;
@@ -99,12 +99,18 @@ a {
     transition: all .3s;
 }
 
+@media (min-width: 768px) { 
+    .btn-primary {
+        padding: 1.8rem 2rem;
+    }
+}
+
+
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
     box-shadow: inset 0px 0px 15px 3px rgba(0, 0, 0, 0.422),
     0px 0px 15px 3px  #3d266770;
-    
 }
 
 .btn-primary--deshabilitado {
@@ -236,19 +242,22 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2.4rem;
+    gap: 1.5rem;
+}
+
+
+@media (min-width: 768px) { 
+    [class$="botones"] {
+        flex-direction: row;
+        justify-content: center;
+        gap: 2.4rem;
+    }
 }
 
 [class$="botones"] button {
     max-width: 28rem;
 }
 
-@media (min-width: 768px) { 
-    [class$="botones"] {
-        flex-direction: row;
-        justify-content: center;
-    }
-}
 
 @media (min-width: 1024px) { 
     [class$="botones"] {
@@ -273,6 +282,7 @@ a {
     gap: 2rem;
     padding: 2rem;
     height: 100%;
+    min-height: 26rem;
 }
 
 @media (min-width: 1024px) { 
