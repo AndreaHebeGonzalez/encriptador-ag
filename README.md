@@ -1,4 +1,4 @@
-#🔑 Encriptador de texto
+# 🔑 Encriptador de texto
 
 Esta aplicacion corresponde con el primer challenge de Alura Latam & Oracle Next Education. Está desarrollado con html, css y javaScript. Su función es encriptar y desencriptar mensajes segun un conjunto de llaves de encriptacion. El objetivo de esta aplicacion es intercambiar información con otras personas de una manera segura e intuitiva.
 
