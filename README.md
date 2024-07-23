@@ -11,7 +11,7 @@ Esta aplicacion corresponde con el primer challenge de Alura Latam & Oracle Next
 
 Pagina : [Github-Pages](https://andreahebegonzalez.github.io/encriptador-ag/)
 
-## 🔑Llaves de encriptacion
+## 🔐Llaves de encriptacion
 
 Las "llaves" de encriptación que se utilizaron son las siguiente:
 
@@ -36,7 +36,8 @@ Las "llaves" de encriptación que se utilizaron son las siguiente:
 
 ` Por ejemplo: "gato" => "gaitober" "gaitober" => "gato"`
 
-### autora
+### Autora
 
 Andrea Gonzalez <br>
+
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AndreaHebeGonzalez) 
