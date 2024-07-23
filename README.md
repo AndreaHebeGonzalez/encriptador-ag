@@ -1,17 +1,11 @@
-# 🔏 Encriptador de texto
+#🔑 Encriptador de texto
 
 Esta aplicacion corresponde con el primer challenge de Alura Latam & Oracle Next Education. Está desarrollado con html, css y javaScript. Su función es encriptar y desencriptar mensajes segun un conjunto de llaves de encriptacion. El objetivo de esta aplicacion es intercambiar información con otras personas de una manera segura e intuitiva.
 
 
 ## Interfaz de usuario: 
 
-![imagen-general-v2](./img/ui-screenshot.jpeg)
-
-<div align="center">
-    <img src="https://img.shields.io/badge/JavaScript-5A5A5A?logo=javascript&logoColor=yelllow"/>
-    <img src="https://img.shields.io/badge/HTML-5A5A5A?logo=html5" />
-    <img src="https://img.shields.io/badge/CSS-5A5A5A?logo=css3&logoColor=01A3D8" />
-</div>
+![imagen-iu](./img/ui-screenshot.jpeg)
 
 ## 🔗Links
 
@@ -41,3 +35,8 @@ Las "llaves" de encriptación que se utilizaron son las siguiente:
 - El resultado se muestra en el panel derecho.
 
 ` Por ejemplo: "gato" => "gaitober" "gaitober" => "gato"`
+
+### autora
+
+Andrea Gonzalez 
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AndreaHebeGonzalez) 
